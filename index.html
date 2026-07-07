@@ -5,42 +5,57 @@
         <title>CamOS</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body bgcolor="#f0ffe8">
-        <div class="header">
-            <table>
-                <tr>
-                    <td>
-                        <div class="logo-container">
-                            <img src="assets/logo.png">
-                        </div>
-                    </td>
-                    <td>
-                        <h1>CamOS</h1>
-                        <p><i>CamoKid's custom OS!</i></p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="main-content">
-            <h2>Introduction</h2>
-            <p><b>Welcome to CamOS!</b> This was developed by CamoKid as part of Hack Club's Stardance <abbr title="You Ship We Ship">YSWS</abbr>.</p>
-            <p>I'm CamoKid, and I've been a part of Hack Club since July 2025. I'm based in Sydney, Australia 🇦🇺.</p>
-            <p>I've co-organised and worked on Hack Club satellite events such as Daydream and Campfire.</p>
-            <p>I know Python, HTML, CSS, and a little bit of SQL. I'm currently learning Javascript.</p>
-            <p>I'm interested IT and engineering, and plan to go into mechatronics or software development.</p>
-
-            <div class="socials">
-                <h2>Socials</h2>
-                <p><a href="https://github.com/MMS139">
-                    <img src="assets/github-logo.png">
-                    GitHub
-                </a></p>
-                <p><a href="https://www.youtube.com/@camokid139">
-                    <img src="assets/youtube-logo.png">
-                    YouTube
-                </a></p>
+    <body>
+        <div class="taskbar">
+            <div style="justify-content: left;">
+                <p style="margin: 10px; font-weight: bold; background-color: rgba(255, 255, 255, 0.1); padding: 2px 10px; border-radius: 16px;">CamOS</p>
+                <button id="homeopen" onclick="toggleWindow(homeWindow);" style="background: none; border: none; padding: 0; cursor: pointer; height: 100%;"><img src="assets/logo-icon.png" style="height: 100%;"></button>
+            </div>
+            <div style="justify-content: right;">
+                <p id="timeElement" style="margin-right: 10px;">Time</p>
             </div>
         </div>
+        <div class="window" id="home">
+            <div class="header" id="homeheader">
+                <div class="closebuttondiv" style="margin-left: 10px;"><button class="closebutton"id="homeclose" onclick="closeWindow(homeWindow);"></button></div>
+                <p style="margin: 7px 10px;">Home Page</p>
+            </div>
+            <div class="hero-section">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="logo-container">
+                                <img src="assets/logo.png">
+                            </div>
+                        </td>
+                        <td>
+                            <h1>CamOS</h1>
+                            <p><i>CamoKid's custom OS!</i></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="main-content">
+                <h2>Introduction</h2>
+                <p><b>Welcome to CamOS!</b> This was developed by CamoKid as part of Hack Club's Stardance <abbr title="You Ship We Ship">YSWS</abbr>.</p>
+                <p>I'm CamoKid, and I've been a part of Hack Club since July 2025. I'm based in Sydney, Australia 🇦🇺.</p>
+                <p>I've co-organised and worked on Hack Club satellite events such as Daydream and Campfire.</p>
+                <p>I know Python, HTML, CSS, and a little bit of SQL. I'm currently learning Javascript.</p>
+                <p>I'm interested IT and engineering, and plan to go into mechatronics or software development.</p>
+
+                <div class="socials">
+                    <h2>Socials</h2>
+                    <p><a href="https://github.com/MMS139">
+                        <img src="assets/github-logo.png">
+                        GitHub
+                    </a></p>
+                    <p><a href="https://www.youtube.com/@camokid139">
+                        <img src="assets/youtube-logo.png">
+                        YouTube
+                    </a></p>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="script.js"></script>
     </body>
 </html>

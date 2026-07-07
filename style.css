@@ -4,6 +4,10 @@ body {
     font-family: 'Sansation', sans-serif;
     margin: 0;
     padding: 0;
+    background-image: url(assets/background.jpeg);
+    background-size: cover;
+    height: 100vh;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -15,14 +19,14 @@ h1 {
 h2 {
     font-family: 'Stack Sans Notch', sans-serif;
     margin: 10px 0;
-    font-size: 2.4em;
+    font-size: 2em;
 }
 
 p {
     font-family: 'Sansation', sans-serif;
     line-height: 1.6;
     margin: 5px 0;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 a {
@@ -35,7 +39,70 @@ img {
     height: auto;
 }
 
+.taskbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    user-select: none;
+    font-size: 1.2em;
+}
+
+.taskbar div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+}
+
+.window {
+    position: absolute;
+    width: fit-content;
+}
+
 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    position: absolute;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.25);
+    color: #fff;
+    user-select: none;
+    top: 0;
+    cursor: grab;
+}
+
+.closebutton {
+    width: 15px;
+    height: 15px;
+    background-color: #fd5754;
+    border: 1px solid #de4542;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#home {
+    border: 1em ridge #8C4DB1;
+    background-color: #f0ffe8;
+    width: 1000px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#home .hero-section {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,50 +110,49 @@ img {
     background-color: #429e00;
     color: white;
     margin-bottom: 20px;
-    padding: 5px 15%;
+    padding: 35px 15% 5px 15%;
 }
 
-.header table {
+#home .hero-section table {
     width: 60%;
     border-collapse: collapse;
 }
 
-.header tr {
+#home .hero-section tr {
     max-height: 200px;
 }
 
-.header td {
+#home .hero-section td {
     padding: 20px;
     width: 50%;
 }
 
-.logo-container {
+#home .logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.logo-container img {
+#home .logo-container img {
     width: 100%;
 }
 
-.header h1 {
-    font-size: 8em;
+#home .hero-section h1 {
+    font-size: 4em;
     margin: 0;
 }
 
-.header p {
-    font-size: 1.5em;
+#home .hero-section p {
     margin: 0 0 10px 0;
     font-weight: bold;
 }
 
-.main-content {
+#home .main-content {
     padding: 20px 15%;
 }
 
-.socials img {
+#home .socials img {
     width: 20px;
     vertical-align: middle;
     margin-right: 5px;
