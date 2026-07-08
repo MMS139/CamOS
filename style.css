@@ -55,6 +55,7 @@ img {
     color: #fff;
     user-select: none;
     font-size: 1.2em;
+    z-index: 100;
 }
 
 .taskbar div {
@@ -64,9 +65,31 @@ img {
     height: 100%;
 }
 
+.taskbar-left {
+    justify-content: left;
+}
+
+.taskbar-left button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    height: 100%;
+}
+
+.taskbar-left img {
+    height: 90%;
+}
+
 .window {
     position: absolute;
     width: fit-content;
+    border: 1em ridge grey;
+    background-color: white;
+    width: 500px;
+    top: 20%;
+    left: 20%;
+    transform: translate(-50%, -50%);
 }
 
 .header {
@@ -156,4 +179,44 @@ img {
     width: 20px;
     vertical-align: middle;
     margin-right: 5px;
+}
+
+#terminal {
+    color: #4AF626;
+    background-color: black;
+    min-height: 300px;
+}
+
+#terminal .header {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+#terminal .main-content {
+    padding: 20px;
+    padding-top: 60px;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+#terminal .main-content h2, #terminal .main-content p {
+    font-family: monospace;
+}
+
+#terminal input {
+    background: black;
+    color: #4AF626;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 1em;
+    width: 80%;
+}
+
+#terminal .terminalprefix {
+    color: #8C4DB1;
+    font-weight: bold;
+}
+
+#terminal .terminalcommand {
+    color: white;
 }

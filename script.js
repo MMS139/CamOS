@@ -2,7 +2,13 @@ setInterval(function () {
   document.querySelector("#timeElement").innerHTML = new Date().toLocaleString();
 }, 1000);
 
+var windows = Array.from(document.querySelectorAll(".window"));
 var homeWindow = document.querySelector("#home");
+var terminalWindow = document.querySelector("#terminal");
+
+for (const i of windows) {
+    dragElement(i);
+}
 
 function closeWindow(element) {
     element.style.display = "none";
@@ -15,9 +21,6 @@ function toggleWindow(element) {
         element.style.display = "none";
     }
 }
-
-// Make the DIV element draggable:
-dragElement(document.querySelector(".window"));
 
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
@@ -70,3 +73,88 @@ function dragElement(element) {
     document.onmousemove = null;
   }
 }
+
+var terminalOutput = document.getElementById("terminaloutput");
+var terminalInput = document.getElementById("terminalinput");
+
+terminalInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        let prefix = "<span class='terminalprefix'>CamOs:\\></span>"
+        let command = terminalInput.value.trim();
+        function highlightCommand() {
+            terminalOutput.innerHTML += `${prefix} <span class='terminalcommand'>${command.split(" ")[0]}</span> ${command.split(" ").slice(1).join(" ")}<br>`;
+        }
+
+        if (command.split(" ")[0] === "-help") {
+            if (command.split(" ")[1] === "-time") {
+                highlightCommand();
+                terminalOutput.innerHTML +=
+                "<br><b>Command: <span class='terminalcommand'>-time</span> <span style='color: yellow;'>[timezone]</span></b><br>" +
+                "<b>Find the current time in a timezone</b><br><br>" +
+                "Enter the timezone abbreviation after '<span class='terminalcommand'>-time</span>' to get the current time there<br>" +
+                "If left empty, defaults to UTC<br><br>" +
+                "<span style='color: aqua;'>Currently, <span class='terminalcommand'>-time</span> only works for UTC and AEST</span><br><br>";
+            } else if (command === "-help") {
+                highlightCommand();
+                terminalOutput.innerHTML += 
+                "<br>For commands highlighted in <span style='color: yellow;'>yellow</span>, run '<span class='terminalcommand'>-help</span> <span style='color: yellow;'>[command]</span>' to find out more about the command.<br><br>" +
+                "Available commands:<br>" +
+                "<span class='terminalcommand'>-help</span>: View a list of all commands<br>" +
+                "<span class='terminalcommand'>-about</span>: About CamOS<br>" +
+                "<span class='terminalcommand'><span style='color: yellow;'>-time [timezone]</span></span>: Find the current time in a timezone<br>" +
+                "<span class='terminalcommand'>-clear</span>: Clear the terminal<br>" +
+                "<span class='terminalcommand'>-quit</span>: Close the terminal<br>" +
+                "<span class='terminalcommand'>-refresh</span>: Refresh the page<br>";
+            } else {
+                terminalOutput.innerHTML += `${prefix} ${command}<br>`;
+                terminalOutput.innerHTML += `error: command not found: ${command.split(" ").slice(1).join(" ")}<br>Run <span class='terminalcommand'>-help</span> for a list of commands.<br>`;
+            }
+        } else if (command === "-about") {
+            highlightCommand();
+            terminalOutput.innerHTML += "Custom OS made by CamoKid to show off his cool coding knowledge.<br>";
+        } else if (command.split(" ")[0] === "-time") {
+            highlightCommand();
+            let targetTimezone = "UTC"
+            if (command.split(" ")[1] !== "") {
+                if (command.split(" ")[1] === "UTC") {
+                    targetTimezone = "UTC"
+                } else if (command.split(" ")[1] === "AEST") {
+                    targetTimezone = "+10:00"
+                }
+
+                let dOptions = {
+                    timeZone: targetTimezone,
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                };
+                const currentTime = new Date()
+                const dFormat = new Intl.DateTimeFormat('en-AU', dOptions);
+                terminalOutput.innerHTML += dFormat.format(currentTime) + "<br>"
+            } else {
+                terminalOutput.innerHTML += `${prefix} ${command}<br>`;
+                terminalOutput.innerHTML += `error: command not found: ${command.split(" ").slice(1).join(" ")}<br>Run <span class='terminalcommand'>-help</span> for a list of commands.<br>`;
+            }
+        } else if (command === "-clear") {
+            terminalOutput.innerHTML = "";
+        } else if (command === "-quit") {
+            closeWindow(terminalWindow);
+            highlightCommand();
+            terminalOutput.innerHTML +=
+            "<span style='color: red;'>Quitting terminal...</span><br>" +
+            "<span style='color: yellow;'>Terminal restored!</span><br>";
+        } else if (command === "-refresh") {
+            highlightCommand();
+            terminalOutput.innerHTML += "<span style='color: yellow;'>Refreshing page...</span><br>";
+            window.location.reload();
+        } else {
+            terminalOutput.innerHTML += `${prefix} ${command}<br>`;
+            terminalOutput.innerHTML += `error: command not found: ${command.split(" ")[0]}<br>Run <span class='terminalcommand'>-help</span> for a list of commands.<br>`;
+        }
+
+        terminalInput.value = "";
+    }
+})
