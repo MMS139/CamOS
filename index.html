@@ -10,8 +10,9 @@
         <div class="taskbar">
             <div class="taskbar-left">
                 <p style="margin: 10px; font-weight: bold; background-color: rgba(255, 255, 255, 0.1); padding: 2px 10px; border-radius: 16px;">CamOS</p>
-                <button id="homeopen" onclick="toggleWindow(homeWindow);"><img src="assets/logo-icon.png""></button>
+                <button id="homeopen" onclick="toggleWindow(homeWindow);"><img src="assets/finder-icon.png""></button>
                 <button id="terminalopen" onclick="toggleWindow(terminalWindow);"><img src="assets/terminal-icon.png"></button>
+                <button id="calculatoropen" onclick="toggleWindow(calculatorWindow);"><img src="assets/calculator-icon.png"></button>
             </div>
             <div style="justify-content: right;">
                 <p id="timeElement" style="margin-right: 10px;">Time</p>
@@ -58,7 +59,7 @@
                 </div>
             </div>
         </div>
-         <div class="window" id="terminal">
+        <div class="window" id="terminal">
             <div class="header" id="terminalheader">
                 <div class="closebuttondiv" style="margin-left: 10px;"><button class="closebutton" id="terminalclose" onclick="closeWindow(terminalWindow);"></button></div>
                 <p style="margin: 7px 10px;">Terminal</p>
@@ -66,6 +67,40 @@
             <div class="main-content">
                 <div id="terminaloutput"></div>
                 <span class="terminalprefix">CamOS:\></span> <input id="terminalinput" autocomplete="off">
+            </div>
+        </div>
+        <div class="window" id="calculator">
+            <div class="header" id="calculatorheader">
+                <div class="closebuttondiv" style="margin-left: 10px;"><button class="closebutton" id="calculatorclose" onclick="closeWindow(calculatorWindow);"></button></div>
+                <p style="margin: 7px 10px;">Calculator</p>
+            </div>
+            <div class="main-content">
+                <div class="calcoutput"></div>
+                <div class="calcbuttons">
+                    <button onclick="appendNumber('7')">7</button>
+                    <button onclick="appendNumber('8')">8</button>
+                    <button onclick="appendNumber('9')">9</button>
+                    <button onclick="deleteLast()">DEL</button>
+                    <button onclick="clearAll()">AC</button>
+
+                    <button onclick="appendNumber('4')">4</button>
+                    <button onclick="appendNumber('5')">5</button>
+                    <button onclick="appendNumber('6')">6</button>
+                    <button onclick="operation('m')">*</button>
+                    <button onclick="operation('d')">/</button>
+
+                    <button onclick="appendNumber('1')">1</button>
+                    <button onclick="appendNumber('2')">2</button>
+                    <button onclick="appendNumber('3')">3</button>
+                    <button onclick="operation('a')">+</button>
+                    <button onclick="operation('s')">-</button>
+
+                    <button onclick="appendNumber('0')">0</button>
+                    <button onclick="appendNumber('.')">.</button>
+                    <button onclick="operation('e')">x^y</button>
+                    <button style="background-color: black;">Ans</button>
+                    <button onclick="calculate()">=</button>
+                </div>
             </div>
         </div>
         <script type="text/javascript" src="script.js"></script>

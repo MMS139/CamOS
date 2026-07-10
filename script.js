@@ -5,6 +5,7 @@ setInterval(function () {
 var windows = Array.from(document.querySelectorAll(".window"));
 var homeWindow = document.querySelector("#home");
 var terminalWindow = document.querySelector("#terminal");
+var calculatorWindow = document.querySelector("#calculator");
 
 for (const i of windows) {
     dragElement(i);
@@ -77,9 +78,10 @@ function dragElement(element) {
 var terminalOutput = document.getElementById("terminaloutput");
 var terminalInput = document.getElementById("terminalinput");
 
+terminalOutput.innerHTML += "Welcome to CamOS. Run <span class='terminalcommand'>-help</span> to see a list of all available commands."
 terminalInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
-        let prefix = "<span class='terminalprefix'>CamOs:\\></span>"
+        let prefix = "<span class='terminalprefix'>CamOS:\\></span>"
         let command = terminalInput.value.trim();
         function highlightCommand() {
             terminalOutput.innerHTML += `${prefix} <span class='terminalcommand'>${command.split(" ")[0]}</span> ${command.split(" ").slice(1).join(" ")}<br>`;
@@ -150,6 +152,8 @@ terminalInput.addEventListener("keydown", function (e) {
             highlightCommand();
             terminalOutput.innerHTML += "<span style='color: yellow;'>Refreshing page...</span><br>";
             window.location.reload();
+        } else if (command === "") {
+            terminalOutput.innerHTML += `${prefix} <br>`;
         } else {
             terminalOutput.innerHTML += `${prefix} ${command}<br>`;
             terminalOutput.innerHTML += `error: command not found: ${command.split(" ")[0]}<br>Run <span class='terminalcommand'>-help</span> for a list of commands.<br>`;
@@ -158,3 +162,88 @@ terminalInput.addEventListener("keydown", function (e) {
         terminalInput.value = "";
     }
 })
+
+var display = document.querySelector("#calculator .calcoutput");
+var num1
+var num2
+var operator
+
+function add(x, y) {
+    console.log('add', x, y);
+    return x + y;
+}
+
+function subtract(x, y) {
+    console.log('subtract', x, y);
+    return x - y;
+}
+
+function multiply(x, y) {
+    console.log('multiply', x, y);
+    return x * y;
+}
+
+function divide(x, y) {
+    if (y === 0) {
+        console.log('error: division by 0');
+        return "Error: Division by 0";
+    } else {
+        console.log('divide', x, y);
+        return x / y;
+    }
+}
+
+function exponent(x, y) {
+    console.log('exponent', x, y);
+    return Math.pow(x, y);
+}
+
+function appendNumber(number) {
+    console.log('appendNumber', number);
+    display.innerHTML += number;
+}
+
+function clearAll() {
+    console.log('clearAll');
+    display.innerHTML = "";
+    num1 = null;
+    num2 = null;
+    operator = null;
+}
+
+function deleteLast() {
+    console.log('deleteLast');
+    display.innerHTML = display.innerHTML.slice(0, -1);
+}
+
+function operation(operatorLocal) {
+    console.log('operation', operatorLocal);
+    num1 = parseFloat(display.innerHTML);
+    operator = String(operatorLocal);
+    display.innerHTML = "";
+}
+
+function calculate() {
+    console.log('calculate');
+    var num2 = parseFloat(display.innerHTML);
+    let result
+    console.log(num1, num2, operator);
+    if (operator === "a") {
+        result = add(num1, num2);
+    } else if (operator === "s") {
+        result = subtract(num1, num2);
+    } else if (operator === "m") {
+        result = multiply(num1, num2);
+    } else if (operator === "d") {
+        result = divide(num1, num2);
+    } else if (operator ==="e") {
+        result = exponent(num1, num2);
+    } else {
+        console.log("error: unknown");
+        result = "Error";
+    }
+    result = String(result)
+    let maxLength = 6;
+    let displayText = result.length > maxLength ? result.slice(0, maxLength) + "...": result;
+    display.innerHTML = displayText;
+}
