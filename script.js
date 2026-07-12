@@ -79,7 +79,7 @@ function dragElement(element) {
 var terminalOutput = document.getElementById("terminaloutput");
 var terminalInput = document.getElementById("terminalinput");
 
-terminalOutput.innerHTML += "Welcome to CamOS. Run <span class='terminalcommand'>-help</span> to see a list of all available commands."
+terminalOutput.innerHTML += "Welcome to CamOS. Run <span class='terminalcommand'>-help</span> to see a list of all available commands.<br>"
 terminalInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
         let prefix = "<span class='terminalprefix'>CamOS:\\></span>"
@@ -159,7 +159,8 @@ terminalInput.addEventListener("keydown", function (e) {
             terminalOutput.innerHTML += `${prefix} ${command}<br>`;
             terminalOutput.innerHTML += `error: command not found: ${command.split(" ")[0]}<br>Run <span class='terminalcommand'>-help</span> for a list of commands.<br>`;
         }
-
+        const terminalContainer = document.querySelector("#terminal .main-content");
+        terminalContainer.scrollTop = terminalContainer.scrollHeight;
         terminalInput.value = "";
     }
 })
