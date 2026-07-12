@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Stack+Sans+Notch:wght@200..700&display=swap');
 
+/* Global Settings */
 body {
     font-family: 'Sansation', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: none;
     background-image: url(assets/background.jpeg);
     background-size: cover;
     height: 100vh;
@@ -37,6 +39,17 @@ a {
 img {
     max-width: 100%;
     height: auto;
+}
+/* */
+.brightness-overlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0;
+    z-index: 99999;
+    pointer-events: none;
+    transition: opacity 0.1s;
 }
 
 .taskbar {
@@ -83,11 +96,12 @@ img {
 
 .window {
     position: absolute;
+    display: none;
     border: 1em ridge grey;
     background-color: white;
     width: 500px;
-    top: 20%;
-    left: 20%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
 }
@@ -116,12 +130,12 @@ img {
     cursor: pointer;
 }
 
+/* Home Window */
 #home {
+    display: block;
     border: 1em ridge #8C4DB1;
     background-color: #f0ffe8;
     width: 1000px;
-    top: 50%;
-    left: 50%;
     z-index: 5;
 }
 
@@ -181,10 +195,14 @@ img {
     margin-right: 5px;
 }
 
+/* Terminal Window */
 #terminal {
+    display: block;
     color: #4AF626;
     background-color: black;
     min-height: 300px;
+    top: 20%;
+    left: 20%;
 }
 
 #terminal .header {
@@ -221,11 +239,12 @@ img {
     color: white;
 }
 
+/* Calculator Window */
 #calculator {
+    display: block;
     color: black;
     background-color: whitesmoke;
     height: 600px;
-    width: 500px;
     border: 1em ridge lightblue;
     top: 40%;
     left: 80%;
@@ -279,4 +298,107 @@ img {
 #calculator .calcbuttons button:hover {
     background-color: rgb(186, 186, 186);
     cursor: pointer;
+}
+
+/* Settings Window */
+#settings {
+    background-color: rgb(252, 252, 252);
+    color: black;
+    border: 1em ridge lightgrey;
+}
+
+#settings .main-content {
+    padding: 60px 40px 20px 40px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#settings .main-content b {
+    display: block;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+#settings .main-content .wallpaper-colour {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3%;
+    margin: 10px 0 20px 0;
+}
+
+#settings .main-content .wallpaper-colour button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid grey;
+    border-radius: 50%;
+}
+
+#settings .main-content .wallpaper-colour button.active {
+    border: 3px solid skyblue;
+}
+
+#settings .main-content .wallpaper-image {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#settings .main-content .wallpaper-image button {
+    background: none;
+    border: none;
+    padding: 0;
+    height: 100%;
+}
+
+#settings .main-content .wallpaper-image img {
+    border: 3px solid transparent;
+    border-radius: 5px;
+    height: 80px;
+    width: 120px;
+    overflow: hidden;
+}
+
+#settings .main-content .wallpaper-image img.active {
+    border: 3px solid skyblue;
+}
+
+#settings .main-content .brightness-slider-container {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#settings .main-content .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 10px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+#settings .main-content .slider:hover {
+    opacity: 1;
+}
+
+#settings .main-content .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #439E02;
+}
+
+#settings .main-content .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #439E02;
 }

@@ -6,6 +6,7 @@ var windows = Array.from(document.querySelectorAll(".window"));
 var homeWindow = document.querySelector("#home");
 var terminalWindow = document.querySelector("#terminal");
 var calculatorWindow = document.querySelector("#calculator");
+var settingsWindow = document.querySelector("#settings");
 
 for (const i of windows) {
     dragElement(i);
@@ -16,10 +17,10 @@ function closeWindow(element) {
 }
 
 function toggleWindow(element) {
-    if (element.style.display === "none") {
-        element.style.display = "block";
-    } else {
+    if (!(element.style.display === "none")) {
         element.style.display = "none";
+    } else {
+        element.style.display = "block";
     }
 }
 
@@ -246,4 +247,55 @@ function calculate() {
     let maxLength = 6;
     let displayText = result.length > maxLength ? result.slice(0, maxLength) + "...": result;
     display.innerHTML = displayText;
+}
+
+var body = document.querySelector("body");
+const coloursLen = Array.from(document.querySelectorAll("#settings .main-content .wallpaper-colour button")).length;
+console.log(coloursLen)
+const wallpapers = ["background.jpeg", "background2.png", "background3.png"];
+
+document.getElementById("wallpaper1").classList.add("active");
+
+function changeWallpaperColour(colourNum) {
+    let newColour = document.getElementById(`colour${colourNum}`)
+    body.style.backgroundColor = newColour.style.backgroundColor;
+    body.style.backgroundImage = "none";
+
+    for (i = 0; i < coloursLen; i++) {
+        if (document.getElementById(`colour${i+1}`).classList.contains("active")) {
+            document.getElementById(`colour${i+1}`).classList.remove("active")
+        }
+    }
+    newColour.classList.add("active");
+
+    for (i = 0; i < wallpapers.length; i++) {
+        if (document.getElementById(`wallpaper${i+1}`).classList.contains("active")) {
+            document.getElementById(`wallpaper${i+1}`).classList.remove("active")
+        }
+    }
+}
+
+function changeWallpaperImage(wallpaperNum) {
+    body.style.backgroundImage = `url(assets/${wallpapers[wallpaperNum-1]})`;
+    
+    for (i = 0; i < wallpapers.length; i++) {
+        if (document.getElementById(`wallpaper${i+1}`).classList.contains("active")) {
+            document.getElementById(`wallpaper${i+1}`).classList.remove("active")
+        }
+    }
+    document.getElementById(`wallpaper${wallpaperNum}`).classList.add("active");
+
+    for (i = 0; i < coloursLen; i++) {
+        if (document.getElementById(`colour${i+1}`).classList.contains("active")) {
+            document.getElementById(`colour${i+1}`).classList.remove("active")
+        }
+    }
+}
+
+var slider = document.getElementById("brightnessslider");
+var brightnessOverlay = document.getElementById("brightnessoverlay");
+brightnessOverlay.style.opacity = 1.22403 * Math.pow(0.739301, slider.value);
+
+slider.oninput = function() {
+  brightnessOverlay.style.opacity = 1.22403 * Math.pow(0.739301, this.value);
 }

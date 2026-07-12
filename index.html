@@ -7,12 +7,14 @@
         <link rel="icon" type="image/png" href="assets/logo-icon.png">
     </head>
     <body>
+        <div class="brightness-overlay" id="brightnessoverlay"></div>
         <div class="taskbar">
             <div class="taskbar-left">
                 <p style="margin: 10px; font-weight: bold; background-color: rgba(255, 255, 255, 0.1); padding: 2px 10px; border-radius: 16px;">CamOS</p>
                 <button id="homeopen" onclick="toggleWindow(homeWindow);"><img src="assets/finder-icon.png""></button>
                 <button id="terminalopen" onclick="toggleWindow(terminalWindow);"><img src="assets/terminal-icon.png"></button>
                 <button id="calculatoropen" onclick="toggleWindow(calculatorWindow);"><img src="assets/calculator-icon.png"></button>
+                <button id="settingsopen" onclick="toggleWindow(settingsWindow);"><img src="assets/settings-icon.png"></button>
             </div>
             <div style="justify-content: right;">
                 <p id="timeElement" style="margin-right: 10px;">Time</p>
@@ -100,6 +102,36 @@
                     <button onclick="operation('e')">x^y</button>
                     <button style="background-color: black;">Ans</button>
                     <button onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+        <div class="window" id="settings">
+            <div class="header" id="settingsheader">
+                <div class="closebuttondiv" style="margin-left: 10px;"><button class="closebutton" id="settingsclose" onclick="closeWindow(settingsWindow);"></button></div>
+                <p style="margin: 7px 10px;">Settings</p>
+            </div>
+            <div class="main-content">
+                <h1 style="margin-bottom: 5px;">Settings</h1>
+                <b>Wallpaper</b>
+                <p>Solid Colours</p>
+                <div class="wallpaper-colour">
+                    <button id="colour1" style="background-color: rgb(255, 112, 112);" onclick="changeWallpaperColour('1')"></button>
+                    <button id="colour2" style="background-color: rgb(255, 166, 0);" onclick="changeWallpaperColour('2')"></button>
+                    <button id="colour3" style="background-color: rgb(255, 255, 139);" onclick="changeWallpaperColour('3')"></button>
+                    <button id="colour4" style="background-color: rgb(170, 255, 170);" onclick="changeWallpaperColour('4')"></button>
+                    <button id="colour5" style="background-color: rgb(73, 131, 255);" onclick="changeWallpaperColour('5')"></button>
+                    <button id="colour6" style="background-color: rgb(255, 128, 255);" onclick="changeWallpaperColour('6')"></button>
+                    <button id="colour7" style="background-color: rgb(192, 192, 192);" onclick="changeWallpaperColour('7')"></button>
+                </div>
+                <p>Static Wallpapers</p>
+                <div class="wallpaper-image">
+                    <button onclick="changeWallpaperImage(1)"><img class="wallpaper-img" id="wallpaper1" src="assets/background.jpeg"></button>
+                    <button onclick="changeWallpaperImage(2)"><img class="wallpaper-img" id="wallpaper2" src="assets/background2.png"></button>
+                    <button onclick="changeWallpaperImage(3)"><img class="wallpaper-img" id="wallpaper3" src="assets/background3.png"></button>
+                </div>
+                <b>Brightness</b>
+                <div class="brightness-slider-container">
+                    <input type="range" min="1" max="10" value="8" class="slider" id="brightnessslider">
                 </div>
             </div>
         </div>
