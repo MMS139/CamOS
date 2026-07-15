@@ -7,6 +7,7 @@ var homeWindow = document.querySelector("#home");
 var terminalWindow = document.querySelector("#terminal");
 var calculatorWindow = document.querySelector("#calculator");
 var settingsWindow = document.querySelector("#settings");
+var musicWindow = document.querySelector("#music");
 
 for (const i of windows) {
     dragElement(i);
@@ -252,7 +253,6 @@ function calculate() {
 
 var body = document.querySelector("body");
 const coloursLen = Array.from(document.querySelectorAll("#settings .main-content .wallpaper-colour button")).length;
-console.log(coloursLen)
 const wallpapers = ["background.jpeg", "background2.png", "background3.png"];
 
 document.getElementById("wallpaper1").classList.add("active");
@@ -300,3 +300,118 @@ brightnessOverlay.style.opacity = 1.22403 * Math.pow(0.739301, slider.value);
 slider.oninput = function() {
   brightnessOverlay.style.opacity = 1.22403 * Math.pow(0.739301, this.value);
 }
+
+var audio = document.getElementById("audio");
+var playBtn = document.getElementById("play");
+var prevBtn = document.getElementById("previoustrack");
+var nextBtn = document.getElementById("nexttrack");
+var title = document.getElementById("songname");
+var artist = document.getElementById("artistname");
+var cover = document.getElementById("albumcover");
+var progressBar = document.getElementById("progressbar");
+var currentTimeEl = document.getElementById("currenttime");
+var durationTimeEl = document.getElementById("totalduration");
+
+const songs = [
+    { name: "Fairytale", artist: "Alexander Rybak", cover: "fairytales.jpeg", src: "fairytale.mp3" },
+    { name: "Faded", artist: "Alan Walker", cover: "faded.jpg", src: "faded.mp3" },
+    { name: "Shiawase", artist: "Dion Timmer", cover: "shiawase.jpg", src: "shiawase.mp3" },
+    { name: "Beggin'", artist: "Måneskin", cover: "chosen.png", src: "beggin.mp3" },
+    { name: "Billie Jean", artist: "Michael Jackson", cover: "thriller.png", src: "billiejean.mp3" },
+    { name: "From the Start", artist: "Laufey", cover: "bewitched.webp", src: "fromthestart.mp3" },
+    { name: "Golden Brown", artist: "The Stranglers", cover: "lafolie.jpg", src: "goldenbrown.mp3" }
+]
+
+let songIndex = 0;
+let isPlaying = false;
+
+function loadSong(song) {
+    songIndex = song;
+    song = songs[song];
+    title.innerHTML = song.name;
+    artist.innerHTML = song.artist;
+    cover.src = "assets/music-tracks/albums/" + song.cover;
+    audio.src = "assets/music-tracks/songs/" + song.src;
+}
+
+function playSong() {
+    isPlaying = true;
+    audio.play();
+    playBtn.innerHTML = "<img src='assets/icons/pause-icon.png' alt='||'></img>";
+}
+
+function pauseSong() {
+    isPlaying = false;
+    audio.pause();
+    playBtn.innerHTML = "<img src='assets/icons/play-icon.png' alt='>' style='padding-left: 2px;'>";
+}
+
+playBtn.addEventListener('click', () => {
+    if (isPlaying) {
+        pauseSong();
+    } else {
+        playSong();
+    }
+});
+
+function prevSong() {
+    songIndex--;
+    if (songIndex < 0) {
+        songIndex = songs.length - 1; // Loop back to last song
+    }
+    loadSong(songIndex);
+    if (isPlaying) playSong();
+}
+
+function nextSong() {
+    songIndex++;
+    if (songIndex > songs.length - 1) {
+        songIndex = 0; // Loop forward to first song
+    }
+    loadSong(songIndex);
+    if (isPlaying) playSong();
+}
+
+function formatSongTime(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = Math.floor(seconds % 60);
+    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+}
+
+audio.addEventListener('timeupdate', (e) => {
+    const { duration, currentTime } = e.srcElement;
+    if (duration) {
+        // Update slider value percentage
+        const progressPercent = (currentTime / duration) * 1000;
+        progressBar.value = progressPercent;
+        
+        // Update track numerical timestamps
+        currentTimeEl.innerText = formatSongTime(currentTime);
+        durationTimeEl.innerText = formatSongTime(duration);
+    }
+});
+
+progressBar.addEventListener('input', () => {
+    const seekTime = (progressBar.value / 1000) * audio.duration;
+    audio.currentTime = seekTime;
+});
+
+for (i = 0; i < songs.length; i++) {
+    let songTitle = songs[i].name;
+    let songArtist = songs[i].artist;
+    let songCover = songs[i].cover;
+    let trackDiv = `<div class="playlist-track" onclick="loadSong(${i}); playSong();">
+                        <div style="border-radius: 10px; overflow: hidden; height: 50px; width: 50px;">
+                            <img src="assets/music-tracks/albums/${songCover}">
+                        </div>
+                        <div>
+                            <b>${songTitle}</b><br>
+                            <span style="color: rgba(255, 255, 255, 0.8); font-size: 0.8em;">${songArtist}</span>
+                        </div>
+                    </div>`
+    document.getElementById("playlist").innerHTML += trackDiv;
+}
+
+audio.addEventListener('ended', nextSong);
+
+loadSong(songIndex);

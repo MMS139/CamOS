@@ -4,17 +4,18 @@
         <meta charset="UTF-8">
         <title>CamOS</title>
         <link rel="stylesheet" href="style.css">
-        <link rel="icon" type="image/png" href="assets/logo-icon.png">
+        <link rel="icon" type="image/png" href="assets/icons/logo-icon.png">
     </head>
     <body>
         <div class="brightness-overlay" id="brightnessoverlay"></div>
         <div class="taskbar">
             <div class="taskbar-left">
                 <p style="margin: 10px; font-weight: bold; background-color: rgba(255, 255, 255, 0.1); padding: 2px 10px; border-radius: 16px;">CamOS</p>
-                <button id="homeopen" onclick="toggleWindow(homeWindow);"><img src="assets/finder-icon.png"></button>
-                <button id="terminalopen" onclick="toggleWindow(terminalWindow);"><img src="assets/terminal-icon.png"></button>
-                <button id="calculatoropen" onclick="toggleWindow(calculatorWindow);"><img src="assets/calculator-icon.png"></button>
-                <button id="settingsopen" onclick="toggleWindow(settingsWindow);"><img src="assets/settings-icon.png"></button>
+                <button id="homeopen" onclick="toggleWindow(homeWindow);"><img src="assets/icons/finder-icon.png"></button>
+                <button id="terminalopen" onclick="toggleWindow(terminalWindow);"><img src="assets/icons/terminal-icon.png"></button>
+                <button id="calculatoropen" onclick="toggleWindow(calculatorWindow);"><img src="assets/icons/calculator-icon.png"></button>
+                <button id="settingsopen" onclick="toggleWindow(settingsWindow);"><img src="assets/icons/settings-icon.png"></button>
+                <button id="musicopen" onclick="toggleWindow(musicWindow);"><img src="assets/icons/music-icon.png"></button>
             </div>
             <div style="justify-content: right;">
                 <p id="timeElement" style="margin-right: 10px;">Time</p>
@@ -51,11 +52,11 @@
                 <div class="socials">
                     <h2>Socials</h2>
                     <p><a href="https://github.com/MMS139">
-                        <img src="assets/github-logo.png">
+                        <img src="assets/icons/github-logo.png">
                         GitHub
                     </a></p>
                     <p><a href="https://www.youtube.com/@camokid139">
-                        <img src="assets/youtube-logo.png">
+                        <img src="assets/icons/youtube-logo.png">
                         YouTube
                     </a></p>
                 </div>
@@ -133,6 +134,34 @@
                 <div class="brightness-slider-container">
                     <input type="range" min="1" max="10" value="8" class="slider" id="brightnessslider">
                 </div>
+            </div>
+        </div>
+        <div class="window" id="music">
+            <div class="header" id="musicheader">
+                <div class="closebuttondiv" style="margin-left: 10px;"><button class="closebutton" id="musicclose" onclick="closeWindow(musicWindow);"></button></div>
+                <p style="margin: 7px 10px;">Music Player</p>
+            </div>
+            <div class="main-content">
+                <div class="now-playing">
+                    <p style="font-size: 0.7em; color: grey; letter-spacing: 3px;">now playing</p>
+                    <div class="album-cover-container">
+                        <img id="albumcover" src="assets/icons/music-icon.png">
+                    </div>
+                    <p id="songname" style="font-size: 1em; font-weight: bold;">Song</p>
+                    <p id="artistname" style="font-size: 0.8em; font-weight: bold; color: grey;">Artist</p>
+                </div>
+                <audio id="audio" src=""></audio>
+                <div class="progress-container">
+                    <span id="currenttime">0:00</span>
+                    <input type="range" id="progressbar" value="0" max="1000">
+                    <span id="totalduration">0:00</span>
+                </div>
+                <div class="music-controls">
+                    <button id="previoustrack" onclick="prevSong()"><img src="assets/icons/previous-icon.png" alt="|<"></button>
+                    <button id="play" style="color: white; background-color: #df354a; border: 1px solid #DF5165; width: 50px; height: 50px;"><img src="assets/icons/play-icon.png" alt=">" style="padding-left: 2px;"></button>
+                    <button id="nexttrack" onclick="nextSong()"><img src="assets/icons/next-icon.png" alt=">|"></button>
+                </div>
+                <div class="playlist" id="playlist"></div>
             </div>
         </div>
         <script type="text/javascript" src="script.js"></script>
